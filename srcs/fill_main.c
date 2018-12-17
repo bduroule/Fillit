@@ -23,7 +23,7 @@ void print_index(f_list *tab)
 		while (count < 4)
 		{
 			printf("x = %d || y = %d      id = [%d]\n", 
-			tab->tmp[count].x, tab->tmp[count].y, tab->nb);
+			tab->index[count].x, tab->index[count].y, tab->nb);
 			count++;
 		}
 		write(1, "\n", 1);

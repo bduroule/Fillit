@@ -30,11 +30,9 @@ typedef struct		f_index
 
 typedef struct		f_lst
 {
-	int				i;
 	int				nb;
 	char			**piece;
 	t_index			index[4];
-	t_index			tmp[4];
 	struct f_lst	*next;
 }					f_list;
 
@@ -46,12 +44,12 @@ typedef struct 		s_place
 
 f_list      *fill_read(f_list *tab, int fd);
 int			fill_error(char *buff);
-char		**fill_the_map(int size);
+int			fill_the_map(t_map *map);
 int			tetri_len(f_list *lst);
 void 		fill_place(f_list *piece);
 void		fill_print_map(t_map *map);
 int			fill_solver(f_list *tetri);
-int			tertri_algo(t_map *map, f_list *list, f_list *begin, int nb_tet);
+int			tertri_algo(f_list *list, t_map *map);
 
 void 		print_index(f_list *tab);
 

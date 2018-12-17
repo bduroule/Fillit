@@ -49,7 +49,7 @@ OK 		= $(GREEN)[ok]$(END)
 all: obj $(NAME) 
 
 $(NAME) : $(OBJ)
-	#@make -C $(LIB_PATH)
+	@make -C $(LIB_PATH)
 	@$(CC) $(CFLAGS) $(LIB) $(OBJ) -o $(NAME)
 	@printf "compilling ($(NAME))........................................... $(OK)\n"
 

@@ -51,22 +51,25 @@ void		fill_print_map(t_map *map)
 	}
 }
 
-char			**fill_the_map(int size)
+int			fill_the_map(t_map *map)
 {
 	int 	i;
-	char	**tab;
+	int		j;
 
 	i = 0;
-	if (!(tab = (char **)malloc(sizeof(char *) * (size + 1))))
-		return (NULL);
-	while (i < size)
+	if (!(map->map = (char **)malloc(sizeof(char *) * (map->size + 1))))
+		return (0);
+	while (i < map->size)
 	{
-		if (!(tab[i] = ft_strnew(size)))
-			return (NULL);
-		if (!(tab[i] = ft_memset((void *)tab[i], '.', size)))
-			return (NULL);
+		j = 0;
+		if (!(map->map[i] = ft_strnew(map->size)))
+			return (0);
+		while (j < map->size)
+		{
+			map->map[i][j] = '.';
+			j++;
+		}
 		i++;
 	}
-	tab[i] = NULL;
-	return (tab);
+	return(1);
 }
