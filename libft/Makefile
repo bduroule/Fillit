@@ -61,28 +61,25 @@ all: obj $(NAME)
 
 $(NAME): $(OBJ)
 	@ar -rcs $(NAME) $?
-	@printf "\nlibft built................................................... \
+	@printf "\nlibft built.................................................... \
 	$(GREEN)[ok]$(END)\n"
 
 obj:
 	@mkdir -p $(OBJ_PATH)
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c loading
-	@$(CC) $(CFLAGS) -I$(INC_PATH) -c $< -o $@
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 	@printf "$(GREEN2) $(END2)"
-
-loading:
-	@printf "\nloading... \n"
 
 clean:
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_PATH)
-	@printf "remove obect.................................................. \
+	@printf "remove obect................................................... \
 	$(GREEN)[ok]$(END)\n"
 
 fclean: clean
 	@rm -f $(NAME)
-	@printf "remove libft.................................................. \
+	@printf "remove libft................................................... \
 	$(GREEN)[ok]$(END)\n"
 
 re: fclean all

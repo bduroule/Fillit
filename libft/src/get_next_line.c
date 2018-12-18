@@ -29,9 +29,9 @@ static int				ft_error(int fd, char *str, char **line)
 	return (0);
 }
 
-static t_lst			*ft_fd_read(int fd, t_lst **list)
+static t_liste			*ft_fd_read(int fd, t_liste **list)
 {
-	t_lst *tmp;
+	t_liste *tmp;
 
 	tmp = *list;
 	while (tmp)
@@ -40,7 +40,7 @@ static t_lst			*ft_fd_read(int fd, t_lst **list)
 			return (tmp);
 		tmp = tmp->next;
 	}
-	if (!(tmp = (t_lst *)malloc(sizeof(t_lst))))
+	if (!(tmp = (t_liste *)malloc(sizeof(t_liste))))
 		return (NULL);
 	tmp->string = ft_strnew(0);
 	tmp->fd = fd;
@@ -99,8 +99,8 @@ static char				*ft_search_line(char **str)
 
 int						get_next_line(const int fd, char **line)
 {
-	static t_lst	*str;
-	t_lst			*tab;
+	static t_liste	*str;
+	t_liste			*tab;
 
 	tab = ft_fd_read(fd, &str);
 	if (ft_error(fd, tab->string, line) || (tab->string == NULL &&

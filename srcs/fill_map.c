@@ -13,10 +13,10 @@
 
 #include "../include/fillit.h"
 
-int	tetri_len(f_list *lst)
+int			tetri_len(t_lst *lst)
 {
 	int		i;
-	f_list	*tmp;
+	t_lst	*tmp;
 
 	tmp = lst;
 	i = 0;
@@ -25,10 +25,7 @@ int	tetri_len(f_list *lst)
 		i++;
 		tmp = tmp->next;
 	}
-	//nb = tmp->nb;
-	//free(tmp);
 	return (i);
-
 }
 
 void		fill_print_map(t_map *map)
@@ -37,23 +34,22 @@ void		fill_print_map(t_map *map)
 	int		j;
 
 	i = 0;
-	j = 0;
 	while (map->map[i])
 	{
+		j = 0;
 		while (map->map[i][j])
 		{
 			ft_putchar(map->map[i][j]);
 			j++;
 		}
 		write(1, "\n", 1);
-		j = 0;
 		i++;
 	}
 }
 
 int			fill_the_map(t_map *map)
 {
-	int 	i;
+	int		i;
 	int		j;
 
 	i = 0;
@@ -71,5 +67,44 @@ int			fill_the_map(t_map *map)
 		}
 		i++;
 	}
-	return(1);
+	map->map[i] = NULL;
+	return (1);
+}
+
+void		free_list(t_lst *list)
+{
+	int		i;
+	t_lst	*tmp;
+
+	i = 0;
+	while (list)
+	{
+		i = 0;
+		while (list->piece[i])
+		{
+			ft_strdel(&list->piece[i]);
+			i++;
+		}
+		free(list->piece);
+		list->piece = NULL;
+		tmp = list->next;
+		free(list);
+		list = NULL;
+		list = tmp;
+	}
+	ft_memdel((void **)&tmp);
+	ft_memdel((void **)&list);
+}
+
+void		free_map(t_map *map)
+{
+	int i;
+
+	i = 0;
+	while (map->map[i])
+	{
+		free(map->map[i]);
+		i++;
+	}
+	free(map->map);
 }

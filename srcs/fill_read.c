@@ -13,12 +13,12 @@
 
 #include "../include/fillit.h"
 
-static int	fill_addlist(f_list **tab, int count, char *buff)
+static int	fill_addlist(t_lst **tab, int count, char *buff)
 {
-	f_list *tmp;
-	f_list *tmplist;
+	t_lst *tmp;
+	t_lst *tmplist;
 
-	if (!(tmp = (f_list *)malloc(sizeof(f_list))))
+	if (!(tmp = (t_lst *)malloc(sizeof(t_lst))))
 		return (0);
 	tmp->piece = ft_strsplit(buff, '\n');
 	tmp->nb = count;
@@ -32,14 +32,12 @@ static int	fill_addlist(f_list **tab, int count, char *buff)
 			tmplist = tmplist->next;
 		tmplist->next = tmp;
 	}
-//	free(tmp);
-//	free(tmplist);
 	return (1);
 }
 
-f_list		*fill_read(f_list *tab, int fd)
+t_lst		*fill_read(t_lst *tab, int fd)
 {
-	f_list	*tmp;
+	t_lst	*tmp;
 	int		n;
 	int		count;
 	char	*buff;

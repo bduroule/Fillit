@@ -13,9 +13,9 @@
 
 #include "../include/fillit.h"
 
-static int		*first_sharp(f_list *piece, int pos[2])
+static int		*first_sharp(t_lst *piece, int pos[2])
 {
-	f_list	*tmp;
+	t_lst	*tmp;
 	int		i;
 	int		j;
 
@@ -37,9 +37,9 @@ static int		*first_sharp(f_list *piece, int pos[2])
 	return (0);
 }
 
-static void		fill_pose(f_list *piece)
+static void		fill_pose(t_lst *piece)
 {
-	f_list	*tmp;
+	t_lst	*tmp;
 	int		i;
 	int		j;
 	int		count;
@@ -64,9 +64,9 @@ static void		fill_pose(f_list *piece)
 	}
 }
 
-void			fill_place(f_list *piece)
+void			fill_place(t_lst *piece)
 {
-	f_list *tmp;
+	t_lst *tmp;
 
 	tmp = piece;
 	while (tmp)

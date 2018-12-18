@@ -51,33 +51,23 @@ all: obj $(NAME)
 $(NAME) : $(OBJ)
 	@make -C $(LIB_PATH)
 	@$(CC) $(CFLAGS) $(LIB) $(OBJ) -o $(NAME)
-	@printf "compilling ($(NAME))........................................... $(OK)\n"
+	@printf "compilling ($(NAME))............................................ $(OK)\n"
 
 obj:
 	@mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c 
-	@$(CC) $(CFLAGS) -I $(INC) -o $@ -c $<
+	@$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	@rm -f $(OBJ)
 	@rm -fr $(OBJ_PATH)
 	@make -C $(LIB_PATH) clean
-	@printf "remove object ($(NAME))........................................ $(OK)\n"
+	@printf "remove object ($(NAME))......................................... $(OK)\n"
 
 fclean: clean
 	@rm -f $(NAME)
 	@make -C $(LIB_PATH) fclean
-	@printf "remove all ($(NAME))........................................... $(OK)\n"
+	@printf "remove all ($(NAME))............................................ $(OK)\n"
 
-re: fclean all
-
-signatur:
-	@printf "$(GREEN)                                        	\n";
-	@printf "███████╗  ██╗  ██╗       ██╗       ██╗  ████████╗	\n";
-	@printf "██╔════╝  ██║  ██║       ██║       ██║  ╚══██╔══╝	\n";
-	@printf "█████╗    ██║  ██║       ██║       ██║     ██║   	\n";
-	@printf "██╔══╝    ██║  ██║       ██║       ██║     ██║   	\n";
-	@printf "██║       ██║  ███████╗  ███████╗  ██║     ██║   	\n";
-	@printf "╚═╝       ╚═╝  ╚══════╝  ╚══════╝  ╚═╝     ╚═╝   	\n";
-	@printf "$(END)                                  			\n";
+re : fclean all

@@ -13,67 +13,53 @@
 
 #include "../include/fillit.h"
 
-int fill_solver(f_list *tetri)
-{
-	t_map	*map;
-	f_list	*tmp;
-
-	tmp = tetri;
-	if (!(map = (t_map *)malloc(sizeof(t_map))))
-		return (0);	
-
-	map->size = ft_sqrt(tetri_len(tmp) * 4);
-
-	if(!(fill_the_map(map)))
-		return (0);
-	while (!(tertri_algo(tmp, map)))
-	{
-		free(map->map);
-		map->size++;
-		fill_the_map(map);
-	}
-	fill_print_map(map);
-	return (1);
-}
-
-int tetri_check(f_list *list, t_map *map, f_place index)
+static int		tetri_check(t_lst *list, t_map *map, t_place index)
 {
 	int count;
 
 	count = 0;
 	while (count < 4)
 	{
-		if (index.i + list->index[count].x > -1 && index.i + list->index[count].x < map->size
-		  && index.j + list->index[count].y > -1 && index.j + list->index[count].y < map->size
-		  && map->map[index.i + list->index[count].x][index.j + list->index[count].y] == '.')
+		if (index.i + list->index[count].x > -1 &&
+		index.i + list->index[count].x < map->size
+		&& index.j + list->index[count].y > -1
+		&& index.j + list->index[count].y < map->size
+		&& map->map[index.i + list->index[count].x][index.j +
+		list->index[count].y] == '.')
 			count++;
 		else
 			return (0);
-	} 
+	}
+	if (count != 4)
+		return (0);
 	return (1);
 }
 
-int tetri_place(f_list *list, t_map *map, f_place index)
+static int		tetri_place(t_lst *list, t_map *map, t_place index)
 {
 	int count;
 
 	count = 0;
-	if(!(tetri_check(list, map, index)))
+	if (!(tetri_check(list, map, index)))
 		return (0);
 	while (count < 4)
 	{
-		if (index.i + list->index[count].x > -1 && index.i + list->index[count].x < map->size
-		  && index.j + list->index[count].y > -1 && index.j + list->index[count].y < map->size
-		  && map->map[index.i + list->index[count].x][index.j + list->index[count].y] == '.')
-			map->map[index.i + list->index[count].x][index.j + list->index[count].y] = 64 + list->nb;
+		if (index.i + list->index[count].x > -1 && index.i +
+		list->index[count].x < map->size
+		&& index.j + list->index[count].y > -1 && index.j +
+		list->index[count].y < map->size
+		&& map->map[index.i + list->index[count].x][index.j +
+		list->index[count].y] == '.')
+			map->map[index.i + list->index[count].x][index.j +
+			list->index[count].y] = 64 + list->nb;
 		else
 			return (0);
 		count++;
-	} 
+	}
 	return (1);
 }
 
-void fill_dell(t_map *map, int nb)
+static void		fill_dell(t_map *map, int nb)
 {
 	int i;
 	int j;
@@ -92,9 +78,9 @@ void fill_dell(t_map *map, int nb)
 	}
 }
 
-int tertri_algo(f_list *list, t_map *map)
+static int		tertri_algo(t_lst *list, t_map *map)
 {
-	f_place	tmp;
+	t_place	tmp;
 
 	tmp.i = 0;
 	if (list == NULL)
@@ -106,14 +92,37 @@ int tertri_algo(f_list *list, t_map *map)
 		{
 			if (tetri_place(list, map, tmp))
 			{
-				if(!(tertri_algo(list->next, map)))
+				if (!(tertri_algo(list->next, map)))
 					fill_dell(map, list->nb);
 				else
-					return 1;
+					return (1);
 			}
 			tmp.j++;
 		}
 		tmp.i++;
 	}
 	return (0);
+}
+
+int				fill_solver(t_lst *tetri)
+{
+	t_map	*map;
+	t_lst	*tmp;
+
+	tmp = tetri;
+	if (!(map = (t_map *)malloc(sizeof(t_map))))
+		return (0);
+	map->size = ft_sqrt(tetri_len(tmp) * 4);
+	if (!(fill_the_map(map)))
+		return (0);
+	while (!(tertri_algo(tmp, map)))
+	{
+		free_map(map);
+		map->size++;
+		fill_the_map(map);
+	}
+	fill_print_map(map);
+	free_map(map);
+	free(map);
+	return (1);
 }

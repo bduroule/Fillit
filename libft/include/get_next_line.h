@@ -19,12 +19,12 @@
 # include <libc.h>
 # include "libft.h"
 
-typedef struct		s_lst
+typedef struct		s_liste
 {
 	int				fd;
 	char			*string;
-	struct s_lst	*next;
-}					t_lst;
+	struct s_liste	*next;
+}					t_liste;
 
 int					get_next_line(const int fd, char **line);
 

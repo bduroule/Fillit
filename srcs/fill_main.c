@@ -13,40 +13,20 @@
 
 #include "../include/fillit.h"
 
-void print_index(f_list *tab)
+int	main(int ac, char **av)
 {
-	int count = 0;
-
-	while (tab)
-	{
-		count = 0;
-		while (count < 4)
-		{
-			printf("x = %d || y = %d      id = [%d]\n", 
-			tab->index[count].x, tab->index[count].y, tab->nb);
-			count++;
-		}
-		write(1, "\n", 1);
-		tab = tab->next;
-	}
-}
-
-int main(int ac, char **av)
-{
-	f_list		*tab;
+	t_lst		*tab;
 	int			fd;
-	//int			i;
 
 	tab = NULL;
-	//i = 0;
 	if (ac != 2)
 		return (write(1, "usage: ./fillit source_file\n", 28));
 	if (!(fd = open(av[1], O_RDONLY)))
 		return (0);
 	if (!(tab = fill_read(tab, fd)))
 		return (write(1, "error\n", 6));
-	//print_index(tab);
-	fill_solver(tab);
-
+	if (!(fill_solver(tab)))
+		return (0);
+	free_list(tab);
 	return (0);
 }
