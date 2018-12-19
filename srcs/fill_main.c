@@ -22,11 +22,11 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (write(1, "usage: ./fillit source_file\n", 28));
 	if (!(fd = open(av[1], O_RDONLY)))
-		return (0);
+		return (write(1, "error open file\n", 16));
 	if (!(tab = fill_read(tab, fd)))
 		return (write(1, "error\n", 6));
 	if (!(fill_solver(tab)))
-		return (0);
+		return (write(1, "solver failed\n", 14));
 	free_list(tab);
 	return (0);
 }

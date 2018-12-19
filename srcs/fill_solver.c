@@ -59,19 +59,26 @@ static int		tetri_place(t_lst *list, t_map *map, t_place index)
 	return (1);
 }
 
-static void		fill_dell(t_map *map, int nb)
+static void		fill_dell(t_map *map, int nb, t_place tmp)
 {
 	int i;
 	int j;
+	int count;
 
-	i = 0;
+	i = tmp.i;
+	count = 0;
 	while (i < map->size)
 	{
 		j = 0;
 		while (j < map->size)
 		{
+			if (count == 4)
+				break ;
 			if (map->map[i][j] == 64 + nb)
+			{
 				map->map[i][j] = '.';
+				count++;
+			}
 			j++;
 		}
 		i++;
@@ -93,7 +100,7 @@ static int		tertri_algo(t_lst *list, t_map *map)
 			if (tetri_place(list, map, tmp))
 			{
 				if (!(tertri_algo(list->next, map)))
-					fill_dell(map, list->nb);
+					fill_dell(map, list->nb, tmp);
 				else
 					return (1);
 			}

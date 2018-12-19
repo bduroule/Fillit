@@ -25,6 +25,7 @@ int			tetri_len(t_lst *lst)
 		i++;
 		tmp = tmp->next;
 	}
+	i = tmp->nb;
 	return (i);
 }
 
