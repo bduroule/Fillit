@@ -11,36 +11,63 @@
 #                                                         /                    #
 # **************************************************************************** #
 
-NAME = fillit
+.PHONY: clean all re fclean
 
-CC = gcc
+NAME 	= fillit
+LIB 	= $(LIB_PATH)/libft.a
 
-CFLAGS = -Werror -Wextra -Wall
+#Compil
+CC 		= gcc
+CFLAGS 	= -Wall -Werror -Wextra
 
-SRCS = srcs/fill_main.c		\
-		srcs/fill_error.c 	\
-		srcs/fill_solver.c 	\
-		srcs/fill_read.c	\
-		srcs/fill_map.c		\
-		srcs/fill_place.c
+#File
+SRC_N 	= 	fill_main.c		\
+			fill_error.c 	\
+			fill_solver.c 	\
+			fill_read.c		\
+			fill_map.c		\
+			fill_place.c
+			
+INC_N 	= fillit.h
+SRC 	= $(addprefix $(SRC_PATH)/, $(SRC_N))
+INC 	= $(addprefix $(INC_PATH)/, $(INC_N))
+OBJ		= $(addprefix $(OBJ_PATH)/, $(SRC_N:.c=.o))
 
-LIBS = libft/libft.a
+#Path
+SRC_PATH = ./srcs
+INC_PATH = ./include
+LIB_PATH = ./libft
+OBJ_PATH = ./obj
 
-OBJ = $(SRCS:.c=.o)
+#Color
+GREEN 	= \e[92m
+END 	= \e[97m
+END2	= \e[0m
+GREEN2	= \e[92;7m
+OK 		= $(GREEN)[ok]$(END)
 
-all : $(NAME)
+all: obj $(NAME) 
 
 $(NAME) : $(OBJ)
-	@make -C libft
-	@$(CC) $(LIBS) $(OBJ) -o $@
-%.o: %.c
-	@gcc $(CFLAGS) -o $@ -c $<
+	@make -C $(LIB_PATH)
+	@$(CC) $(CFLAGS) $(LIB) $(OBJ) -o $(NAME)
+	@printf "compilling ($(NAME))............................................ $(OK)\n"
+
+obj:
+	@mkdir -p $(OBJ_PATH)
+
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c 
+	@$(CC) $(CFLAGS) -o $@ -c $<
+
 clean:
 	@rm -f $(OBJ)
-	@cd libft && $(MAKE) clean
+	@rm -fr $(OBJ_PATH)
+	@make -C $(LIB_PATH) clean
+	@printf "remove object ($(NAME))......................................... $(OK)\n"
 
 fclean: clean
 	@rm -f $(NAME)
-	@cd libft && $(MAKE) fclean
+	@make -C $(LIB_PATH) fclean
+	@printf "remove all ($(NAME))............................................ $(OK)\n"
 
-re: fclean all
+re : fclean all
