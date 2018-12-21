@@ -35,6 +35,13 @@ static int	fill_addlist(t_lst **tab, int count, char *buff)
 	return (1);
 }
 
+static void	fill_read_error(char *buff)
+{
+	free(buff);
+	write(1, "error\n", 6);
+	exit(1);
+}
+
 t_lst		*fill_read(t_lst *tab, int fd)
 {
 	t_lst	*tmp;
@@ -50,7 +57,7 @@ t_lst		*fill_read(t_lst *tab, int fd)
 	{
 		buff[n] = '\0';
 		if (!(fill_error(buff)))
-			return (NULL);
+			fill_read_error(buff);
 		if (!(fill_addlist(&tmp, count, buff)))
 			return (NULL);
 		count++;

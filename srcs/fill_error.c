@@ -6,7 +6,7 @@
 /*   By: beduroul <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/14 23:58:49 by beduroul     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/19 15:01:09 by beduroul    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/24 21:55:05 by beduroul    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,20 +24,22 @@ static int		check_piece(char *buff)
 	{
 		if (buff[i] == '#')
 		{
-			if (buff[i + 5] == '#')
-				count++;
-			if (buff[i - 5] == '#')
-				count++;
-			if (buff[i + 1] == '#')
-				count++;
-			if (buff[i - 1] == '#')
-				count++;
+			if (i < 16)
+				if (buff[i + 5] == '#')
+					count++;
+			if (i > 5)
+				if (buff[i - 5] == '#')
+					count++;
+			if (i < 20)
+				if (buff[i + 1] == '#')
+					count++;
+			if (i > 1)
+				if (buff[i - 1] == '#')
+					count++;
 		}
 		i++;
 	}
-	if (count <= 4)
-		return (0);
-	return (1);
+	return ((count <= 4 ? 0 : 1));
 }
 
 static int		check_nline(char *buff)
