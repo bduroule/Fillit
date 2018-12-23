@@ -32,17 +32,11 @@ int			tetri_len(t_lst *lst)
 void		fill_print_map(t_map *map)
 {
 	int		i;
-	int		j;
 
 	i = 0;
 	while (map->map[i])
 	{
-		j = 0;
-		while (map->map[i][j])
-		{
-			ft_putchar(map->map[i][j]);
-			j++;
-		}
+		ft_putstr(map->map[i]);
 		write(1, "\n", 1);
 		i++;
 	}
