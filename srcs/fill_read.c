@@ -6,7 +6,7 @@
 /*   By: jadonvez <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/21 15:19:14 by jadonvez     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/24 23:49:27 by beduroul    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/23 17:03:46 by beduroul    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -63,7 +63,7 @@ t_lst		*fill_read(t_lst *tab, int fd)
 		count++;
 	}
 	if (ft_strlen(buff) != 20)
-		return (NULL);
+		fill_read_error(buff);
 	fill_place(tmp);
 	free(buff);
 	return (tmp);
